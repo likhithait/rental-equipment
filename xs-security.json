@@ -1,0 +1,143 @@
+{
+  "xsappname": "sprint",
+  "tenant-mode": "dedicated",
+  "scopes": [
+    {
+      "name": "$XSAPPNAME.Admin",
+      "description": "Admin: full access to all apps and actions"
+    },
+    {
+      "name": "$XSAPPNAME.Manager",
+      "description": "Manager: approvals, pricing rules, inspection locking"
+    },
+    {
+      "name": "$XSAPPNAME.Dispatcher",
+      "description": "Dispatcher: customers, rental contracts, check-out, transfers"
+    },
+    {
+      "name": "$XSAPPNAME.YardWorker",
+      "description": "Yard Worker: inspections, damage records, photos, check-in"
+    },
+    {
+      "name": "$XSAPPNAME.Technician",
+      "description": "Technician: repair jobs, maintenance, release from workshop"
+    },
+    {
+      "name": "$XSAPPNAME.BillingClerk",
+      "description": "Billing Clerk: repair bills, adjustments, invoicing"
+    },
+    {
+      "name": "$XSAPPNAME.Auditor",
+      "description": "Auditor: read-only access"
+    }
+  ],
+  "role-templates": [
+    {
+      "name": "Admin",
+      "description": "RETS Admin",
+      "scope-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "Manager",
+      "description": "RETS Manager",
+      "scope-references": [
+        "$XSAPPNAME.Manager"
+      ]
+    },
+    {
+      "name": "Dispatcher",
+      "description": "RETS Dispatcher",
+      "scope-references": [
+        "$XSAPPNAME.Dispatcher"
+      ]
+    },
+    {
+      "name": "YardWorker",
+      "description": "RETS YardWorker",
+      "scope-references": [
+        "$XSAPPNAME.YardWorker"
+      ]
+    },
+    {
+      "name": "Technician",
+      "description": "RETS Technician",
+      "scope-references": [
+        "$XSAPPNAME.Technician"
+      ]
+    },
+    {
+      "name": "BillingClerk",
+      "description": "RETS BillingClerk",
+      "scope-references": [
+        "$XSAPPNAME.BillingClerk"
+      ]
+    },
+    {
+      "name": "Auditor",
+      "description": "RETS Auditor",
+      "scope-references": [
+        "$XSAPPNAME.Auditor"
+      ]
+    }
+  ],
+  "role-collections": [
+    {
+      "name": "RETS_Admin",
+      "description": "RETS Admin",
+      "role-template-references": [
+        "$XSAPPNAME.Admin"
+      ]
+    },
+    {
+      "name": "RETS_Manager",
+      "description": "RETS Manager",
+      "role-template-references": [
+        "$XSAPPNAME.Manager"
+      ]
+    },
+    {
+      "name": "RETS_Dispatcher",
+      "description": "RETS Dispatcher",
+      "role-template-references": [
+        "$XSAPPNAME.Dispatcher"
+      ]
+    },
+    {
+      "name": "RETS_YardWorker",
+      "description": "RETS YardWorker",
+      "role-template-references": [
+        "$XSAPPNAME.YardWorker"
+      ]
+    },
+    {
+      "name": "RETS_Technician",
+      "description": "RETS Technician",
+      "role-template-references": [
+        "$XSAPPNAME.Technician"
+      ]
+    },
+    {
+      "name": "RETS_BillingClerk",
+      "description": "RETS BillingClerk",
+      "role-template-references": [
+        "$XSAPPNAME.BillingClerk"
+      ]
+    },
+    {
+      "name": "RETS_Auditor",
+      "description": "RETS Auditor",
+      "role-template-references": [
+        "$XSAPPNAME.Auditor"
+      ]
+    }
+  ],
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "https://*.applicationstudio.cloud.sap/**",
+      "https://*.hana.ondemand.com/**",
+      "http://localhost:5000/**"
+    ]
+  }
+}

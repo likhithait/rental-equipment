@@ -1,0 +1,111 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "retcl.repairjobs",
+    "type": "application",
+    "title": "Workshop Repair Jobs",
+    "description": "Technician assignment, repair labor and parts actuals, and before/after photos",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/maintenance/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "resources": {
+  "css": [
+    {
+      "uri": "css/rets-theme.css"
+    }
+  ]
+},
+    "dependencies": {
+      "minUI5Version": "1.153.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "RepairJobsList",
+          "target": "RepairJobsList"
+        },
+        {
+          "pattern": "RepairJobs({key}):?query:",
+          "name": "RepairJobsObjectPage",
+          "target": "RepairJobsObjectPage"
+        }
+      ],
+      "targets": {
+        "RepairJobsList": {
+          "type": "Component",
+          "id": "RepairJobsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "RepairJobs",
+              "liveMode": true,
+              "navigation": {
+                "RepairJobs": {
+                  "detail": {
+                    "route": "RepairJobsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "RepairJobsObjectPage": {
+          "type": "Component",
+          "id": "RepairJobsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "RepairJobs"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

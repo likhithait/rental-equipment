@@ -1,0 +1,111 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "retcl.maintenanceplanner",
+    "type": "application",
+    "title": "Maintenance Planner",
+    "description": "Schedule, track and review preventive maintenance and calibration routines",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/maintenance/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "resources": {
+  "css": [
+    {
+      "uri": "css/rets-theme.css"
+    }
+  ]
+},
+    "dependencies": {
+      "minUI5Version": "1.153.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "MaintenanceRecordsList",
+          "target": "MaintenanceRecordsList"
+        },
+        {
+          "pattern": "MaintenanceRecords({key}):?query:",
+          "name": "MaintenanceRecordsObjectPage",
+          "target": "MaintenanceRecordsObjectPage"
+        }
+      ],
+      "targets": {
+        "MaintenanceRecordsList": {
+          "type": "Component",
+          "id": "MaintenanceRecordsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "MaintenanceRecords",
+              "liveMode": true,
+              "navigation": {
+                "MaintenanceRecords": {
+                  "detail": {
+                    "route": "MaintenanceRecordsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "MaintenanceRecordsObjectPage": {
+          "type": "Component",
+          "id": "MaintenanceRecordsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "MaintenanceRecords"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

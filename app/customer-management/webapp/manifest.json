@@ -1,0 +1,111 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "retcl.customermanagement",
+    "type": "application",
+    "title": "Customer Management",
+    "description": "Create, search, view, and manage corporate rental customers and contact profiles",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/rental/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "resources": {
+      "css": [
+        {
+          "uri": "css/rets-theme.css"
+        }
+      ]
+    },
+    "dependencies": {
+      "minUI5Version": "1.153.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "CustomersList",
+          "target": "CustomersList"
+        },
+        {
+          "pattern": "Customers({key}):?query:",
+          "name": "CustomersObjectPage",
+          "target": "CustomersObjectPage"
+        }
+      ],
+      "targets": {
+        "CustomersList": {
+          "type": "Component",
+          "id": "CustomersList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Customers",
+              "liveMode": true,
+              "navigation": {
+                "Customers": {
+                  "detail": {
+                    "route": "CustomersObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "CustomersObjectPage": {
+          "type": "Component",
+          "id": "CustomersObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "Customers"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

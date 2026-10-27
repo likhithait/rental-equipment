@@ -1,0 +1,117 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "retcl.fleetoverview",
+    "type": "application",
+    "title": "Fleet Overview & Asset Detail",
+    "description": "Equipment fleet tracking, condition grades and location telemetry",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/rental/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "resources": {
+  "css": [
+    {
+      "uri": "css/rets-theme.css"
+    }
+  ]
+},
+    "dependencies": {
+      "minUI5Version": "1.153.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "retcl.fleetoverview.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "routing": {
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "EquipmentList",
+          "target": "EquipmentList"
+        },
+        {
+          "pattern": "Equipment({key}):?query:",
+          "name": "EquipmentObjectPage",
+          "target": "EquipmentObjectPage"
+        }
+      ],
+      "targets": {
+        "EquipmentList": {
+          "type": "Component",
+          "id": "EquipmentList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "entitySet": "Equipment",
+              "liveMode": true,
+              "navigation": {
+                "Equipment": {
+                  "detail": {
+                    "route": "EquipmentObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "EquipmentObjectPage": {
+          "type": "Component",
+          "id": "EquipmentObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "entitySet": "Equipment"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
